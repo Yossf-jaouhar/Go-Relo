@@ -1,2 +1,4 @@
- 
-(cap)
+it(cap) (up) was the best of times (up)
+it         (up, 2) was the (low) worst of times (low, 63)
+it was the age of foolishness (cap, 3)
+hhh
