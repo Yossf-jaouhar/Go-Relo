@@ -1,6 +1,11 @@
-it(cap)(up)was the best of times (up)
-it (up, 2) was the (low) worst of times (low, 63)
-it was the age of (cap) foolishness (cap, 3)
+it (cap) (up) was the best of times (up,1000) ddd
+hhh
 hhh
 
 
+
+hh
+it (up, 2) was the (low) worst of times (low, 63) fff
+it was the age of (cap) foolishness (cap, 6) ddd
+hhh
+(cap, 2)

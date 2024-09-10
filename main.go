@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -10,19 +9,18 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	data2 := div(string(data))
-	fmt.Println(data2)
 	linebyline := ""
 	for _, row := range data2 {
-		for _, cell := range treatement(row) {
+
+		for _, cell := range row {
 			linebyline += cell
 		}
 		linebyline += "\n"
 
 	}
-
-	err = os.WriteFile("bigarray.txt", []byte(linebyline), 0o666)
+	err = os.WriteFile("result.txt", []byte(linebyline), 0o666)
 	if err != nil {
 		panic(err)
 	}
@@ -36,15 +34,20 @@ func div(data string) [][]string {
 	for _, char := range data {
 		if char == ')' {
 			res += string(char)
+
 			myslice = append(myslice, res)
 			res = ""
 		} else if char == '\n' {
 			if len(res) > 0 {
 				myslice = append(myslice, res)
 				res = ""
+			} else if len(res) == 0 {
+
+				myslice = append(myslice, res)
+				res = ""
 			}
 			if len(myslice) > 0 {
-				bigarray = append(bigarray, myslice)
+				bigarray = append(bigarray, treatment(myslice))
 				myslice = nil
 			}
 		} else {
@@ -62,7 +65,14 @@ func div(data string) [][]string {
 	return bigarray
 }
 
-func treatement(datalinebyline []string) []string {
-	fmt.Println(datalinebyline)
-	return datalinebyline
+func treatment(myslice []string) []string {
+	var mynewslice []string
+	for _, char := range myslice {
+		mynewslice = append(mynewslice, Change(char))
+	}
+	return mynewslice
+}
+
+func Change(char string) string {
+	
 }
