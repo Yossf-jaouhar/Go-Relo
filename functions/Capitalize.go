@@ -21,5 +21,5 @@ func Capitalize(s string) string {
 			next = true
 		}
 	}
-	return string(mySlice)
+	return string(mySlice) + "youuuuuu"
 }
