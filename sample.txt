@@ -1,2 +1,8 @@
+kk
 (cap)
-10 (bin)
+hh jj kk (up, 2)))) hh
+kk
+(cap)
+12 (bin)
+JJ (hex)
+'pin. (up)

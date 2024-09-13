@@ -1,7 +1,6 @@
 package functions
 
 import (
-	"fmt"
 	"strconv"
 	"unicode"
 )
@@ -34,11 +33,20 @@ func Lower(str string) string {
 	return res
 }
 
-func Binary(binaryStr string, line int) string {
+func Binary(binaryStr string) string {
 	decimalValue, err := strconv.ParseInt(binaryStr, 2, 64)
 	if err != nil {
-		fmt.Println("you have a non-binary number in this line", ">>>", line, "<<<", "I will write this number as it is.")
+		// fmt.Println("you have a >>non-binary<< number in your text, I will write this number as it is.")
 		return binaryStr
+	}
+	return strconv.FormatInt(decimalValue, 10)
+}
+
+func Hexadecimal(hexadecimalStr string) string {
+	decimalValue, err := strconv.ParseInt(hexadecimalStr, 16, 64)
+	if err != nil {
+		// fmt.Println("you have a non-hexadecimal number in your text, I will write this number as it is.")
+		return hexadecimalStr
 	}
 	return strconv.FormatInt(decimalValue, 10)
 }
