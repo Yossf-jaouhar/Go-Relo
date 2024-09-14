@@ -40,42 +40,42 @@ func Div(data string) [][]string {
 	return newdata
 }
 
-// treatment of the data line by line
+// treatment of the data line by line and apply (cap),(up),(low)
 func treatment(cell string) string {
 	mynewslice := strings.Fields(cell)
 	var result []string
 
 	for i := 0; i < len(mynewslice); i++ {
 		if mynewslice[i] == "(cap)" && len(result) > 0 {
-			result = functions.Capitalizeslice(result)
+			result = functions.Change_To_Cap(result, 1)
 		} else if mynewslice[i] == "(cap)" && len(result) == 0 {
 		} else if len(mynewslice) >= 2 && mynewslice[i] == "(cap," && isvalidflag(mynewslice[i+1]) {
 			boool, intger := isvalidnumber(mynewslice[i+1])
 			if boool {
-				result = Change_To_Cap(result, intger)
+				result = functions.Change_To_Cap(result, intger)
 				i += 1
 			} else {
 				result = append(result, mynewslice[i])
 			}
 		} else if mynewslice[i] == "(up)" && len(result) > 0 {
-			result = functions.Upperslice(result)
+			result = functions.Change_To_Up(result, 1)
 		} else if mynewslice[i] == "(up)" && len(result) == 0 {
 		} else if len(mynewslice) >= 2 && mynewslice[i] == "(up," && isvalidflag(mynewslice[i+1]) {
 			boool, intger := isvalidnumber(mynewslice[i+1])
 			if boool {
-				result = Change_To_Up(result, intger)
+				result = functions.Change_To_Up(result, intger)
 				i += 1
 			} else {
 				result = append(result, mynewslice[i])
 			}
 
 		} else if mynewslice[i] == "(low)" && len(result) > 0 {
-			result = functions.Lowerslice(result)
+			result = functions.Change_To_Low(result, 1)
 		} else if mynewslice[i] == "(low)" && len(result) == 0 {
 		} else if len(mynewslice) >= 2 && mynewslice[i] == "(low," && isvalidflag(mynewslice[i+1]) {
 			boool, intger := isvalidnumber(mynewslice[i+1])
 			if boool {
-				result = Change_To_Low(result, intger)
+				result = functions.Change_To_Low(result, intger)
 				i += 1
 			} else {
 				result = append(result, mynewslice[i])
@@ -90,10 +90,10 @@ func treatment(cell string) string {
 			result = append(result, mynewslice[i])
 		}
 	}
-
-	return strings.Join(result, " ")
+	Second_treatment := SecondTreatment(result)
+	return strings.Join(Second_treatment, " ")
 }
-
+//check the flag
 func isvalidflag(str string) bool {
 	if str[len(str)-1] == ')' {
 		return true
@@ -101,7 +101,7 @@ func isvalidflag(str string) bool {
 		return false
 	}
 }
-
+// check the number in the flag
 func isvalidnumber(str string) (bool, int) {
 	res := str[:len(str)-1]
 	ress := ""
@@ -115,71 +115,40 @@ func isvalidnumber(str string) (bool, int) {
 	return true, functions.Atoi(ress)
 }
 
-func Change_To_Cap(res []string, intger int) []string {
-	if intger < len(res) {
-		for i := len(res) - 1; i >= 0; i-- {
-			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = functions.Capitalize(res[i])
-						intger--
-
-					}
-				}
-			} else if intger == 0 {
-				break
-			}
+// second treatment of the data line by line and apply "a"
+func  SecondTreatment(res []string) []string {
+	var result []string
+	for i := 0; i < len(res); i++ {
+		if res[i] == "a" && isvalid_STRING(res[i+1]) {
+			result  = append(result, res[i]+"n")
+		} else  if res[i] == "A" && isvalid_STRING(res[i+1]){
+			result = append(result, res[i]+"N")
+		} else {
+			result = append(result, res[i])
 		}
-	} else {
-		for j := 0; j < len(res); j++ {
-			res[j] = functions.Capitalize(res[j])
-		}
-	}
-	return res
+	}	
+	return  Third_treatment(result)
 }
 
-func Change_To_Up(res []string, intger int) []string {
-	if intger < len(res) {
-		for i := len(res) - 1; i >= 0; i-- {
-			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = functions.Upper(res[i])
-						intger--
-
-					}
-				}
-			} else if intger == 0 {
-				break
-			}
-		}
+//  check the string to append "n" or "N"
+func  isvalid_STRING(str string) bool {
+	g := "aAeEiIoOuUhH"
+	if  strings.Contains(g, string(str[0])) {
+		return true
 	} else {
-		for j := 0; j < len(res); j++ {
-			res[j] = functions.Upper(res[j])
-		}
+		return false
 	}
-	return res
+
 }
 
-func Change_To_Low(res []string, intger int) []string {
-	if intger < len(res) {
-		for i := len(res) - 1; i >= 0; i-- {
-			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = functions.Lower(res[i])
-						intger--
-
-					}
-				}
-			} else if intger == 0 {
-				break
-			}
-		}
-	} else {
-		for j := 0; j < len(res); j++ {
-			res[j] = functions.Lower(res[j])
+func Third_treatment(res []string) []string {
+	var result []string 
+	for i := 0; i < len(res); i++ {
+		if res[i] == "," {
+			result = append(result, res[i-1]+res[i])
+		} else {
+			result = append(result, res[i])
 		}
 	}
-	return res
+	return  result
 }

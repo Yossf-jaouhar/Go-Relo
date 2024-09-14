@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"unicode"
 )
-
+// Capitalize the string
 func Capitalize(s string) string {
 	res := ""
 	for i, char := range s {
@@ -16,29 +16,31 @@ func Capitalize(s string) string {
 	}
 	return res
 }
-// Check the word
-func Capitalizeslice(res []string) []string {
-	ff := false 
-	for i:= len(res)-1 ; i >= 0; i-- {
-		if !(ff) {
-			for _, char :=  range res[i] {
-				if char >= 'a'  && char <= 'z' ||  char >= 'A' && char  <= 'Z' {
-					res[i] = Capitalize(res[i])
-					ff  = true
-					
-				} 
+
+// capitalize the sllice  of strings by the number
+func Change_To_Cap(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = Capitalize(res[i])
+						intger--
+
+					}
+				}
+			} else if intger == 0 {
+				break
 			}
-
-		} else {
-			break
 		}
-
-	}	
-		
-	
+	} else {
+		for j := 0; j < len(res); j++ {
+			res[j] = Capitalize(res[j])
+		}
+	}
 	return res
 }
-
+//  upper the string
 func Upper(str string) string {
 	res := ""
 	for _, char := range str {
@@ -47,26 +49,31 @@ func Upper(str string) string {
 	return res
 }
 
-func Upperslice(res []string) []string {
-	ff := false 
-	for i:= len(res)-1 ; i >= 0; i-- {
-		if !(ff) {
-			for _, char :=  range res[i] {
-				if char >= 'a'  && char <= 'z' ||  char >= 'A' && char  <= 'Z' {
-					res[i] = Upper(res[i])
-					ff  = true
-					
-				} 
-			}
+// Upper the sllice  of strings by the number
+func Change_To_Up(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = Upper(res[i])
+						intger--
 
-		} else {
-			break
+					}
+				}
+			} else if intger == 0 {
+				break
+			}
 		}
-	}	
+	} else {
+		for j := 0; j < len(res); j++ {
+			res[j] = Upper(res[j])
+		}
+	}
 	return res
 }
 
-
+// Lower the string
 func Lower(str string) string {
 	res := ""
 	for _, char := range str {
@@ -75,39 +82,71 @@ func Lower(str string) string {
 	return res
 }
 
-func Lowerslice(res []string) []string {
-	ff := false 
-	for i:= len(res)-1 ; i >= 0; i-- {
-		if !(ff) {
-			for _, char :=  range res[i] {
-				if char >= 'a'  && char <= 'z' ||  char >= 'A' && char  <= 'Z' {
-					res[i] = Lower(res[i])
-					ff  = true
-					
-				} 
-			}
+// Lower the slice  of strings by the number
+func Change_To_Low(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = Lower(res[i])
+						intger--
 
-		} else {
-			break
+					}
+				}
+			} else if intger == 0 {
+				break
+			}
 		}
-	}	
+	} else {
+		for j := 0; j < len(res); j++ {
+			res[j] = Lower(res[j])
+		}
+	}
 	return res
 }
 
+// Change the number to binary
 func Binary(binaryStr string) string {
 	decimalValue, err := strconv.ParseInt(binaryStr, 2, 64)
 	if err != nil {
-		// fmt.Println("you have a >>non-binary<< number in your text, I will write t= i -2his number as it is.")
 		return binaryStr
 	}
 	return strconv.FormatInt(decimalValue, 10)
 }
 
+// Change the number to Hexadecimal
 func Hexadecimal(hexadecimalStr string) string {
 	decimalValue, err := strconv.ParseInt(hexadecimalStr, 16, 64)
 	if err != nil {
-		// fmt.Println("you have a non-hexadecimal number in your text, I will write this number as it is.")
 		return hexadecimalStr
 	}
 	return strconv.FormatInt(decimalValue, 10)
+}
+
+// convert string to integer
+func Atoi(s string) int {
+	negative := false
+	res := 0
+	start := 0
+	new := []rune(s)
+	if len(s) == 0 {
+		return 1
+	}
+	if new[0] == '-' {
+		negative = true
+		start = 1
+	} else if s[0] == '+' {
+		start = 1
+	}
+	for i := start; i < len(new); i++ {
+		if new[i] < '0' || new[i] > '9' {
+			return 0
+		}
+		res = res*10 + int(new[i]-'0')
+	}
+	if negative {
+		return -res
+	}
+	return res
 }
