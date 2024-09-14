@@ -1,8 +1,4 @@
-,kk 😄 (cap)
-h g', j (cap, 2)'ggg'
- gfgvgbhnb  '
-j j j  ,es 😄 😄 ,  (up, 2)
-H G H , (low, 2)
-10 (bin)
- (hex) (up)
- a    Hgg
+hh hh hh a a a (up, 2) i
+hh hh hh , .v.v. .v.v. (up, 4)  (cap, 5)
+
+RR RR RR , QQ QQ (low, 4)

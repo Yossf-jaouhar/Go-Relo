@@ -119,9 +119,9 @@ func isvalidnumber(str string) (bool, int) {
 func  SecondTreatment(res []string) []string {
 	var result []string
 	for i := 0; i < len(res); i++ {
-		if res[i] == "a" && isvalid_STRING(res[i+1]) {
+		if i < len(res)-1 && res[i] == "a" && isvalid_STRING(res[i+1]) {
 			result  = append(result, res[i]+"n")
-		} else  if res[i] == "A" && isvalid_STRING(res[i+1]){
+		} else  if i < len(res)-1 && res[i] == "A" && isvalid_STRING(res[i+1]) {
 			result = append(result, res[i]+"N")
 		} else {
 			result = append(result, res[i])
@@ -142,13 +142,5 @@ func  isvalid_STRING(str string) bool {
 }
 
 func Third_treatment(res []string) []string {
-	var result []string 
-	for i := 0; i < len(res); i++ {
-		if res[i] == "," {
-			result = append(result, res[i-1]+res[i])
-		} else {
-			result = append(result, res[i])
-		}
-	}
-	return  result
+	return  res
 }

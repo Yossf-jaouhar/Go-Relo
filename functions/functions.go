@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"unicode"
 )
+
 // Capitalize the string
 func Capitalize(s string) string {
 	res := ""
@@ -22,12 +23,9 @@ func Change_To_Cap(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = Capitalize(res[i])
-						intger--
-
-					}
+				if isposible(res[i]) {
+					res[i] = Capitalize(res[i])
+					intger--
 				}
 			} else if intger == 0 {
 				break
@@ -40,7 +38,8 @@ func Change_To_Cap(res []string, intger int) []string {
 	}
 	return res
 }
-//  upper the string
+
+// upper the string
 func Upper(str string) string {
 	res := ""
 	for _, char := range str {
@@ -54,12 +53,9 @@ func Change_To_Up(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = Upper(res[i])
-						intger--
-
-					}
+				if isposible(res[i]) {
+					res[i] = Upper(res[i])
+					intger--
 				}
 			} else if intger == 0 {
 				break
@@ -87,12 +83,9 @@ func Change_To_Low(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				for _, char := range res[i] {
-					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-						res[i] = Lower(res[i])
-						intger--
-
-					}
+				if isposible(res[i]) {
+					res[i] = Lower(res[i])
+					intger--
 				}
 			} else if intger == 0 {
 				break
@@ -104,6 +97,16 @@ func Change_To_Low(res []string, intger int) []string {
 		}
 	}
 	return res
+}
+
+// Check if the string is possible to change
+func isposible(str string) bool {
+	for _, char := range str {
+		if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+			return true
+		}
+	}
+	return false
 }
 
 // Change the number to binary
