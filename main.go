@@ -23,7 +23,6 @@ func main() {
 				linebyline += cell
 			}
 		}
-	
 	}
 
 	err = os.WriteFile("result.txt", []byte(linebyline), 0o666)

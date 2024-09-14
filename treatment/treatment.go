@@ -93,7 +93,8 @@ func treatment(cell string) string {
 	Second_treatment := SecondTreatment(result)
 	return strings.Join(Second_treatment, " ")
 }
-//check the flag
+
+// check the flag
 func isvalidflag(str string) bool {
 	if str[len(str)-1] == ')' {
 		return true
@@ -101,6 +102,7 @@ func isvalidflag(str string) bool {
 		return false
 	}
 }
+
 // check the number in the flag
 func isvalidnumber(str string) (bool, int) {
 	res := str[:len(str)-1]
@@ -116,31 +118,30 @@ func isvalidnumber(str string) (bool, int) {
 }
 
 // second treatment of the data line by line and apply "a"
-func  SecondTreatment(res []string) []string {
+func SecondTreatment(res []string) []string {
 	var result []string
 	for i := 0; i < len(res); i++ {
 		if i < len(res)-1 && res[i] == "a" && isvalid_STRING(res[i+1]) {
-			result  = append(result, res[i]+"n")
-		} else  if i < len(res)-1 && res[i] == "A" && isvalid_STRING(res[i+1]) {
+			result = append(result, res[i]+"n")
+		} else if i < len(res)-1 && res[i] == "A" && isvalid_STRING(res[i+1]) {
 			result = append(result, res[i]+"N")
 		} else {
 			result = append(result, res[i])
 		}
-	}	
-	return  Third_treatment(result)
+	}
+	return Third_treatment(result)
 }
 
-//  check the string to append "n" or "N"
-func  isvalid_STRING(str string) bool {
+// check the string to append "n" or "N"
+func isvalid_STRING(str string) bool {
 	g := "aAeEiIoOuUhH"
-	if  strings.Contains(g, string(str[0])) {
+	if strings.Contains(g, string(str[0])) {
 		return true
 	} else {
 		return false
 	}
-
 }
 
 func Third_treatment(res []string) []string {
-	return  res
+	return res
 }

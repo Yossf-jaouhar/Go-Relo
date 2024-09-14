@@ -1,4 +1,4 @@
-hh hh hh a a a (up, 2) i
+hh hh hh a a a , (up, 2) 
 hh hh hh , .v.v. .v.v. (up, 4)  (cap, 5)
 
 RR RR RR , QQ QQ (low, 4)
