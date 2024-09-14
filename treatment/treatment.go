@@ -47,28 +47,45 @@ func treatment(cell string) string {
 
 	for i := 0; i < len(mynewslice); i++ {
 		if mynewslice[i] == "(cap)" && len(result) > 0 {
-			result[len(result)-1] = functions.Capitalize(result[len(result)-1])
+			result = functions.Capitalizeslice(result)
 		} else if mynewslice[i] == "(cap)" && len(result) == 0 {
+		} else if len(mynewslice) >= 2 && mynewslice[i] == "(cap," && isvalidflag(mynewslice[i+1]) {
+			boool, intger := isvalidnumber(mynewslice[i+1])
+			if boool {
+				result = Change_To_Cap(result, intger)
+				i += 1
+			} else {
+				result = append(result, mynewslice[i])
+			}
 		} else if mynewslice[i] == "(up)" && len(result) > 0 {
-			result[len(result)-1] = functions.Upper(result[len(result)-1])
+			result = functions.Upperslice(result)
 		} else if mynewslice[i] == "(up)" && len(result) == 0 {
 		} else if len(mynewslice) >= 2 && mynewslice[i] == "(up," && isvalidflag(mynewslice[i+1]) {
 			boool, intger := isvalidnumber(mynewslice[i+1])
 			if boool {
-				result = ff(result, intger)
-				i += 2
+				result = Change_To_Up(result, intger)
+				i += 1
 			} else {
 				result = append(result, mynewslice[i])
 			}
 
 		} else if mynewslice[i] == "(low)" && len(result) > 0 {
-			result[len(result)-1] = functions.Lower(result[len(result)-1])
+			result = functions.Lowerslice(result)
 		} else if mynewslice[i] == "(low)" && len(result) == 0 {
+		} else if len(mynewslice) >= 2 && mynewslice[i] == "(low," && isvalidflag(mynewslice[i+1]) {
+			boool, intger := isvalidnumber(mynewslice[i+1])
+			if boool {
+				result = Change_To_Low(result, intger)
+				i += 1
+			} else {
+				result = append(result, mynewslice[i])
+			}
 		} else if mynewslice[i] == "(bin)" && len(result) > 0 {
 			result[len(result)-1] = functions.Binary(result[len(result)-1])
 		} else if mynewslice[i] == "(bin)" && len(result) == 0 {
 		} else if mynewslice[i] == "(hex)" && len(result) > 0 {
 			result[len(result)-1] = functions.Hexadecimal(result[len(result)-1])
+		} else if mynewslice[i] == "(hex)" && len(result) == 0 {
 		} else {
 			result = append(result, mynewslice[i])
 		}
@@ -76,20 +93,6 @@ func treatment(cell string) string {
 
 	return strings.Join(result, " ")
 }
-
-// // treatflag if "(flag,int)"
-// func treatflag(part1, part2 string) string {
-// 	if part1 == "(up," {
-// 	} else if part1 == "(low," {
-// 		flag := part1 + part2
-// 		return flag
-// 	} else if part1 == "(cap," {
-// 		flag := part1 + part2
-// 		return flagreturn false, 0
-// 	} else {
-// 		return part1
-// 	}
-// }
 
 func isvalidflag(str string) bool {
 	if str[len(str)-1] == ')' {
@@ -112,14 +115,70 @@ func isvalidnumber(str string) (bool, int) {
 	return true, functions.Atoi(ress)
 }
 
-func ff(res []string, intger int) []string {
-	if intger <= len(res) {
-		for j := len(res) - intger; j < len(res); j++ {
-			res[j] = functions.Upper(res[j])
+func Change_To_Cap(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = functions.Capitalize(res[i])
+						intger--
+
+					}
+				}
+			} else if intger == 0 {
+				break
+			}
 		}
-	} else if intger != len(res) {
+	} else {
+		for j := 0; j < len(res); j++ {
+			res[j] = functions.Capitalize(res[j])
+		}
+	}
+	return res
+}
+
+func Change_To_Up(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = functions.Upper(res[i])
+						intger--
+
+					}
+				}
+			} else if intger == 0 {
+				break
+			}
+		}
+	} else {
 		for j := 0; j < len(res); j++ {
 			res[j] = functions.Upper(res[j])
+		}
+	}
+	return res
+}
+
+func Change_To_Low(res []string, intger int) []string {
+	if intger < len(res) {
+		for i := len(res) - 1; i >= 0; i-- {
+			if intger > 0 {
+				for _, char := range res[i] {
+					if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
+						res[i] = functions.Lower(res[i])
+						intger--
+
+					}
+				}
+			} else if intger == 0 {
+				break
+			}
+		}
+	} else {
+		for j := 0; j < len(res); j++ {
+			res[j] = functions.Lower(res[j])
 		}
 	}
 	return res

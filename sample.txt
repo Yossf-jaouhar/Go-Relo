@@ -1,8 +1,4 @@
-kk
-(cap)
-hh jj kk (up, 2)))) hh
-kk
-(cap)
-12 (bin)
-JJ (hex)
-'pin. (up)
+,kk 😄 (cap)
+h g ,j (cap, 2)
+H G h , (up, 1) (low, 2)
+H G H , (low, 2)
