@@ -5,28 +5,32 @@ import (
 	"unicode"
 )
 
-// Capitalize the string
+// Capitalize of the string.
 func Capitalize(s string) string {
-	res := ""
-	for i, char := range s {
-		if i == 0 {
-			res += string(unicode.ToUpper(char))
-		} else {
-			res += string(unicode.ToLower(char))
+	mySlice := []rune(s)
+	next := true
+	for i := 0; i < len(mySlice); i++ {
+		if unicode.IsLetter(mySlice[0]) && next {
+			mySlice[i] = unicode.ToUpper(mySlice[i])
+			next = false
+		} else if next {
+			mySlice[i] = unicode.ToLower(mySlice[i])
+
+			next = true
 		}
 	}
-	return res
+	return string(mySlice)
 }
 
-// capitalize the sllice  of strings by the number
+// capitalize of the slice  of strings by the number.
 func Change_To_Cap(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				if isposible(res[i]) {
-					res[i] = Capitalize(res[i])
-					intger--
-				}
+
+				res[i] = Capitalize(res[i])
+				intger--
+
 			} else if intger == 0 {
 				break
 			}
@@ -39,7 +43,7 @@ func Change_To_Cap(res []string, intger int) []string {
 	return res
 }
 
-// upper the string
+// upper of the string.
 func Upper(str string) string {
 	res := ""
 	for _, char := range str {
@@ -48,15 +52,15 @@ func Upper(str string) string {
 	return res
 }
 
-// Upper the sllice  of strings by the number
+// Upper of the slice of strings by the number.
 func Change_To_Up(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				if isposible(res[i]) {
-					res[i] = Upper(res[i])
-					intger--
-				}
+
+				res[i] = Upper(res[i])
+				intger--
+
 			} else if intger == 0 {
 				break
 			}
@@ -69,7 +73,7 @@ func Change_To_Up(res []string, intger int) []string {
 	return res
 }
 
-// Lower the string
+// Lower of the string.
 func Lower(str string) string {
 	res := ""
 	for _, char := range str {
@@ -78,15 +82,13 @@ func Lower(str string) string {
 	return res
 }
 
-// Lower the slice  of strings by the number
+// Lower of the slice of strings by the number.
 func Change_To_Low(res []string, intger int) []string {
 	if intger < len(res) {
 		for i := len(res) - 1; i >= 0; i-- {
 			if intger > 0 {
-				if isposible(res[i]) {
-					res[i] = Lower(res[i])
-					intger--
-				}
+				res[i] = Lower(res[i])
+				intger--
 			} else if intger == 0 {
 				break
 			}
@@ -99,57 +101,48 @@ func Change_To_Low(res []string, intger int) []string {
 	return res
 }
 
-// Check if the string is possible to change
-func isposible(str string) bool {
-	for _, char := range str {
-		if char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' {
-			return true
+// Binary converts the first binary string in the slice to a decimal number if "intger" is 1.
+func Binary(res []string, intger int) []string {
+	for i := len(res) - 1; i >= 0; i-- {
+		if intger == 1 && isBinary(res[i]) {
+			decimalValue, _ := strconv.ParseInt(res[i], 2, 64)
+			res[i] = strconv.FormatInt(decimalValue, 10)
+			intger--
+		} else if intger == 0 {
+			break
 		}
 	}
-	return false
-}
 
-// Change the number to binary
-func Binary(binaryStr string) string {
-	decimalValue, err := strconv.ParseInt(binaryStr, 2, 64)
-	if err != nil {
-		return binaryStr
-	}
-	return strconv.FormatInt(decimalValue, 10)
-}
-
-// Change the number to Hexadecimal
-func Hexadecimal(hexadecimalStr string) string {
-	decimalValue, err := strconv.ParseInt(hexadecimalStr, 16, 64)
-	if err != nil {
-		return hexadecimalStr
-	}
-	return strconv.FormatInt(decimalValue, 10)
-}
-
-// convert string to integer
-func Atoi(s string) int {
-	negative := false
-	res := 0
-	start := 0
-	new := []rune(s)
-	if len(s) == 0 {
-		return 1
-	}
-	if new[0] == '-' {
-		negative = true
-		start = 1
-	} else if s[0] == '+' {
-		start = 1
-	}
-	for i := start; i < len(new); i++ {
-		if new[i] < '0' || new[i] > '9' {
-			return 0
-		}
-		res = res*10 + int(new[i]-'0')
-	}
-	if negative {
-		return -res
-	}
 	return res
+}
+
+// Helper function to check if a string is a valid "binary" number.
+func isBinary(str string) bool {
+	for _, char := range str {
+		if char != '0' && char != '1' {
+			return false
+		}
+	}
+	return true
+}
+
+// Hexadecimal converts the first hexadecimal string in the slice to a decimal number if "intger" is 1.
+func Hexadecimal(res []string, intger int) []string {
+	for i := len(res) - 1; i >= 0; i-- {
+		if intger == 1 && isHexadecimal(res[i]) {
+			decimalValue, _ := strconv.ParseInt(res[i], 16, 64)
+			res[i] = strconv.FormatInt(decimalValue, 10)
+			intger--
+		} else if intger == 0 {
+			break
+		}
+	}
+
+	return res
+}
+
+// Helper function to check if a string is a valid "hexadecimal" number.
+func isHexadecimal(s string) bool {
+	_, err := strconv.ParseInt(s, 16, 64)
+	return err == nil
 }
